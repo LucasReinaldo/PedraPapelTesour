@@ -16,6 +16,15 @@ public interface PartidaDao {
 
      @Query("DELETE from partidas")
      void limpar();
+
+     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Vitória' ")
+     int contarVitorias();
+
+     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Derrota' ")
+     int contarDerrotas();
+
+     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Empate' ")
+     int contarEmpates();
 }
 
 

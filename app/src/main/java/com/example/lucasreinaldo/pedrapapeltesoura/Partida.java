@@ -17,7 +17,7 @@ public class Partida {
     public String escolhaUsuario;
 
     @ColumnInfo(name = "resultado")
-    public int resultado;
+    public String resultado;
 
 
 }

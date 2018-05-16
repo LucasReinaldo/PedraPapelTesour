@@ -6,35 +6,37 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Handler handlerThreadPrincipal;
-    private Executor executorThreadDoBanco;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
+        handlerThreadPrincipal = new Handler(Looper.getMainLooper());
+        executorThreadDoBanco = Executors.newSingleThreadExecutor();
+    }
+
+     private Handler handlerThreadPrincipal;
+     private Executor executorThreadDoBanco;
 
      public void selecionarPedra(View view){
         this.opcaoSelecionada("pedra");
-
      }
 
      public void selecionarPapel(View view){
          this.opcaoSelecionada("papel");
-
      }
 
      public void selecionarTesoura(View view){
          this.opcaoSelecionada("tesoura");
-
      }
 
         // intent para chamar a tela na qual irá constar as estatísticas
@@ -42,11 +44,17 @@ public class MainActivity extends AppCompatActivity {
 
      public void estatisticaBotao (View button){
          Intent estatisticaIntent = new Intent(MainActivity.this, EstatisticaJogada.class);
-         startActivity(estatisticaIntent);
+         startActivityForResult(estatisticaIntent, 0);
      }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-     public void opcaoSelecionada( String escolhaUsuario){
+        atualizar();
+    }
+
+    public void opcaoSelecionada(final String escolhaUsuario){
 
         /* poderia usar a escolha do usuario com numeros inteiros, porem decidi fazer um array
            de Strings para ficar mais intuito a forma como o codigo esta sendo criado ficando
@@ -55,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
          */
 
         ImageView imagemResutado = this.findViewById(R.id.imageResultado);
-        TextView textoResultado = this.findViewById(R.id.textResultado);
-        TextView textoVitoria = this.findViewById(R.id.Vitoria);
-        TextView textoDerrota = this.findViewById(R.id.Derrota);
-        TextView textoEmpate = this.findViewById(R.id.Empate);
+        final TextView textoResultado = this.findViewById(R.id.textResultado);
+//        TextView textoVitoria = this.findViewById(R.id.Vitoria);
+//        TextView textoDerrota = this.findViewById(R.id.Derrota);
+//        TextView textoEmpate = this.findViewById(R.id.Empate);
 
-        String[] opcoes = {"pedra", "papel", "tesoura"};
-        int numero = new Random().nextInt(3);
-        String escolhaApp = opcoes[numero];
+        final String[] opcoes = {"pedra", "papel", "tesoura"};
+        final int numero = new Random().nextInt(3);
+        final String escolhaApp = opcoes[numero];
 
         // o switch foi feito para o app escolher uma imagem dentro de drawable, se tornando assim
         // a escolha do app.
@@ -76,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+         final Partida p = new Partida();
+         p.escolhaUsuario = escolhaUsuario.toString();
+         p.escolhaApp = escolhaApp.toString();
+
         /* estarei utilizando o ifelse para verificar as condicoes de ganhador e perdedor
            no if estou verificando as condicoes do app ser ganhador
            no ifelse as do usuario e o que sobra sao os empates
@@ -88,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ){
             textoResultado.setText("Você Perdeu! :(");
-
+            p.resultado = "Derrota";
 
         }else if (
                 (escolhaUsuario == "pedra" && escolhaApp == "tesoura") ||
@@ -97,80 +109,26 @@ public class MainActivity extends AppCompatActivity {
 
                 ){
             textoResultado.setText("Você Ganhou! :)");
-
+            p.resultado = "Vitória";
 
         }else {
-            textoResultado.setText("Empatou, tente mais uma vez!");
-
+            textoResultado.setText("Empatou, tente outra vez!");
+            p.resultado = "Empate";
         }
 
+         rodarNaThreadDoBanco(new Runnable() {
+             @Override
+             public void run() {
+                 DBPedraPapelTesoura banco = DBPedraPapelTesoura
+                         .obterInstanciaUnica(MainActivity.this);
+                 PartidaDao partida = banco.partidas();
+                 partida.adicionar(p);
+
+                 atualizar();
+
+             }
+         });
      }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        handlerThreadPrincipal = new Handler(Looper.getMainLooper());
-        executorThreadDoBanco = Executors.newSingleThreadExecutor();
-
-        // Fiz essa parte para que sempre que clicar em um botao para jogar
-        // o banco de dados vai salvar a informacao
-        // Não cheguei a testar ainda, mas acredito qeu a lógica seja essa,
-        // pra gente nao colocar um botao de salvar como no exemplo do prof.
-        findViewById(R.id.imageTesoura).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivityForResult(new Intent(
-                                MainActivity.this, EstatisticaJogada.class), 0);
-                    }
-                });
-        findViewById(R.id.imagePedra).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivityForResult(new Intent(
-                                MainActivity.this, EstatisticaJogada.class), 0);
-                    }
-                });
-        findViewById(R.id.imagePapel).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivityForResult(new Intent(
-                                MainActivity.this, EstatisticaJogada.class), 0);
-                    }
-                });
-
-        findViewById(R.id.botaoLimpar).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rodarNaThreadDoBanco(new Runnable() {
-                            @Override
-                            public void run() {
-                                DBPedraPapelTesoura banco = DBPedraPapelTesoura
-                                        .obterInstanciaUnica(MainActivity.this);
-                                PartidaDao partida = banco.partidas();
-                                partida.limpar();
-
-                                atualizar();
-                            }
-                        });
-                    }
-                });
-
-        atualizar();
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        atualizar();
-    }
 
     void atualizar() {
         rodarNaThreadDoBanco(new Runnable() {
@@ -179,29 +137,25 @@ public class MainActivity extends AppCompatActivity {
                 DBPedraPapelTesoura banco = DBPedraPapelTesoura
                         .obterInstanciaUnica(MainActivity.this);
                 PartidaDao partidas = banco.partidas();
-
-                final List<Partida> lista = partidas.listar();
+                final int vitorias = partidas.contarVitorias();
+                final int derrotas = partidas.contarDerrotas();
+                final int empates = partidas.contarEmpates();
 
                 rodarNaThreadPrincipal(new Runnable() {
                     @Override
                     public void run() {
                         TextView textoVitoria = findViewById(R.id.Vitoria);
-                        TextView textoEmpate = findViewById(R.id.Empate);
+                        textoVitoria.setText("" + vitorias);
                         TextView textoDerrota = findViewById(R.id.Derrota);
-                        ListView listaMovimentacoes = findViewById(R.id.listaMovimentacoes);
-
-                        ArrayAdapter<Partida> adaptador = new ArrayAdapter<>(
-                                MainActivity.this,
-                                android.R.layout.simple_list_item_1,
-                                lista);
-                        listaMovimentacoes.setAdapter(adaptador);
+                        textoDerrota.setText("" + derrotas);
+                        TextView textoEmpate = findViewById(R.id.Empate);
+                        textoEmpate.setText("" + empates);
                     }
                 });
 
             }
         });
     }
-
 
     void rodarNaThreadPrincipal(Runnable acao) {
         handlerThreadPrincipal.post(acao);
