@@ -26,7 +26,7 @@ public interface PartidaDao {
      @Query("SELECT count(id) FROM partidas WHERE resultado = 'Mofassi' ")
      int contarEmpates();
 
-     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Desse um banhu' or  'Ti arrombassi' or 'Mofassi' ")
+     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Desse um banhu' or resultado = 'Ti arrombassi' or resultado = 'Mofassi' ")
      int contarJogadas();
 }
 
