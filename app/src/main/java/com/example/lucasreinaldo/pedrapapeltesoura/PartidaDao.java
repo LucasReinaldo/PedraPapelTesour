@@ -17,17 +17,19 @@ public interface PartidaDao {
      @Query("DELETE from partidas")
      void limpar();
 
-     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Vitória' ")
+     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Desse um banhu' ")
      int contarVitorias();
 
-     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Derrota' ")
+     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Ti arrombassi' ")
      int contarDerrotas();
 
-     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Empate' ")
+     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Mofassi' ")
      int contarEmpates();
+
+     @Query("SELECT count(id) FROM partidas WHERE resultado = 'Desse um banhu' or  'Ti arrombassi' or 'Mofassi' ")
+     int contarJogadas();
 }
 
 
-    //@Query("SELECT * FROM partida WHERE escolha_app AND escolha_usuario")
-    //Partida findByName(String escolhaApp, String escolhaUsuario);
-
+//@Query("SELECT * FROM partida WHERE escolha_app AND escolha_usuario")
+//Partida findByName(String escolhaApp, String escolhaUsuario);

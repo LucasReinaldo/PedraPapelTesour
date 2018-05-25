@@ -19,5 +19,9 @@ public class Partida {
     @ColumnInfo(name = "resultado")
     public String resultado;
 
-
+    @Override
+    public String toString()  {
+        return ("Você escolheu " + escolhaUsuario) + (", o App escolheu,  " + escolhaApp) + (". Resultado: " + resultado);
+    }
 }
+
