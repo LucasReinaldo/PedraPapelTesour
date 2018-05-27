@@ -1,6 +1,7 @@
 package com.example.lucasreinaldo.pedrapapeltesoura;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -117,7 +118,10 @@ public class MainActivity extends AppCompatActivity {
                 ) {
             textoEscolha.setText ("O Mané joga a Tarrafa!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
+
 
         }else if (
 
@@ -125,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Mané joga o Jereré!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
 
@@ -134,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Siri garra no Mané!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
 
@@ -143,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("A Tainha dixpara Mané!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
 
@@ -152,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("A Tarrafa pesca a Tainha!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
 
@@ -161,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Jereré pesca o Siri!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
         }else if (
@@ -169,6 +183,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("A Tarrafa pesca o Siri!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
         }else if (
@@ -177,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Jereré escangalha a Tarrafa!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
         }else if (
@@ -185,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("A Tainha dixpara do jereré!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
         }else if (
@@ -193,6 +213,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Siri garra na Tainha!");
             textoResultado.setText ("Coisa Medonha!!! Você Perdeu! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.coisamedonha);
+            mediaPlayer.start();
             p.resultado = "Ti arrombassi";
 
 
@@ -202,6 +224,8 @@ public class MainActivity extends AppCompatActivity {
                 ) {
             textoEscolha.setText ("O Mané joga a Tarrafa!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
         }else if (
@@ -210,6 +234,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Mané joga o Jereré!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
 
@@ -219,6 +245,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Siri garra no Mané!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
 
@@ -228,6 +256,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("A Tainha dixpara do Mané!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
 
@@ -237,6 +267,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("A Tarrafa pesca a Tainha!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
 
@@ -246,6 +278,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Jereré pesca o Siri!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
         }else if (
@@ -254,6 +288,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("A Tarrafa pesca o Siri!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
         }else if (
@@ -262,6 +298,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Jereré escangalha a Tarrafa!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
         }else if (
@@ -270,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("A Tainha dixpara do jereré!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
         }else if (
@@ -278,6 +318,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ){ textoEscolha.setText ("O Siri garra na Tainha!");
             textoResultado.setText ("Dazum Banhu!!! Você Ganhou! :)");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.dazumbanho);
+            mediaPlayer.start();
             p.resultado = "Desse um banhu";
 
 
@@ -285,6 +327,8 @@ public class MainActivity extends AppCompatActivity {
         }else {
             textoEscolha.setText("Mofas ca pomba na balaia!!!");
             textoResultado.setText("Empatou, tente outra vez!");
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.mofascomapomba);
+            mediaPlayer.start();
             p.resultado = "Mofassi";
         }
 
