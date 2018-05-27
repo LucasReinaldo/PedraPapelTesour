@@ -325,7 +325,9 @@ public class MainActivity extends AppCompatActivity {
                         textoDerrota.setText("Derrotas:  " + derrotas);
                         TextView textoEmpate = findViewById(R.id.Empate);
                         textoEmpate.setText("Empates:  " + empates);
+
                     }
+
                 });
 
             }
