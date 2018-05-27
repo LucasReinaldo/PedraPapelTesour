@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 final int vitorias = partidas.contarVitorias();
                 final int derrotas = partidas.contarDerrotas();
                 final int empates = partidas.contarEmpates();
-                final int jogadas = partidas.contarJogadas ();
+                final int jogadas = 51 - partidas.contarJogadas ();
 
                 rodarNaThreadPrincipal(new Runnable() {
                     @Override
