@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         atualizar();
     }
 
-    
+
     public void opcaoSelecionada(final String escolhaUsuario){
 
         /* poderia usar a escolha do usuario com numeros inteiros, porem decidi fazer um array
@@ -376,12 +376,12 @@ public class MainActivity extends AppCompatActivity {
                 final int vitorias = partidas.contarVitorias();
                 final int derrotas = partidas.contarDerrotas();
                 final int empates = partidas.contarEmpates();
-                final int jogadas = partidas.contarJogadas ();
+                final int jogadas = partidas.contarJogadas();
 
-                if(jogadas = 40){
+                if(jogadas == 40){
                     criarNotificacao();
                 }
-
+;
                 rodarNaThreadPrincipal(new Runnable() {
                     @Override
                     public void run() {
