@@ -1,9 +1,16 @@
 package com.example.lucasreinaldo.pedrapapeltesoura;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
         handlerThreadPrincipal = new Handler(Looper.getMainLooper());
         executorThreadDoBanco = Executors.newSingleThreadExecutor();
+
+        createNotificationChannel();
     }
+
+    public void abrirCamera(View view){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 0);
+    };
 
     private Handler handlerThreadPrincipal;
     private Executor executorThreadDoBanco;
@@ -61,7 +75,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if(data != null){
+            Bundle bundle = data.getExtras();
+            if(bundle != null){
+                Bitmap img = (Bitmap) bundle.get("data");
+                ImageView im = (ImageView) findViewById(R.id.imageMane);
+                im.setImageBitmap(img);
+            }
+        }
         atualizar();
     }
 
@@ -376,6 +397,39 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            NotificationChannel channel = new NotificationChannel(
+                    "canal",
+                    "Nome do canal",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription("Canal de notificações");
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void criarNotificacao() {
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent intentPendente = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder construtorDeNotificao =
+                new NotificationCompat.Builder(this, "canal")
+                        .setSmallIcon(R.drawable.ic_stat_name)
+                        .setContentTitle("Você não está exausto?")
+                        .setContentText("Já jogou 40 jogos, pare para tomar uma água!")
+                        .setContentIntent(intentPendente)
+                        .addAction(R.drawable.ic_stat_name, "Jogar", intentPendente)
+                        .setAutoCancel(true);
+
+        NotificationManager gerenciadorDeNotificacoes =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        gerenciadorDeNotificacoes.notify(1, construtorDeNotificao.build());
     }
 
     void rodarNaThreadPrincipal(Runnable acao) {
