@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
                 final int empates = partidas.contarEmpates();
                 final int jogadas = partidas.contarJogadas();
 
-                if(jogadas == 40){
+                if(jogadas == 10){
                     criarNotificacao();
                 }
 ;
